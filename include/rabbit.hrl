@@ -14,6 +14,8 @@
 %% Copyright (c) 2007-2017 Pivotal Software, Inc.  All rights reserved.
 %%
 
+-include("amqqueue.hrl").
+
 %% Passed around most places
 -record(user, {username,
                tags,
@@ -130,10 +132,15 @@
           options = #{}}).    %% transient, recalculated in store/1 (i.e. recovery)
 
 -record(amqqueue, {
-          name, durable, auto_delete, exclusive_owner = none, %% immutable
-          arguments,                   %% immutable
-          pid,                         %% durable (just so we know home node)
-          slave_pids, sync_slave_pids, %% transient
+          name:: rabbit_amqqueue:name(),                       %% immutable
+          durable:: boolean(),                                 %% immutable
+          auto_delete:: boolean(),                             %% immutable
+          exclusive_owner = none :: rabbit_types:maybe(pid()), %% immutable
+          arguments :: rabbit_framing:amqp_table(),            %% immutable
+          pid :: rabbit_types:maybe(pid()), %% durable (just so we know home
+                                            %% node)
+          slave_pids :: [pid()],       %% transient
+          sync_slave_pids,             %% transient
           recoverable_slaves,          %% durable
           policy,                      %% durable, implicit update as above
           operator_policy,             %% durable, implicit update as above
@@ -142,7 +149,7 @@
           state,                       %% durable (have we crashed?)
           policy_version,
           slave_pids_pending_shutdown,
-          vhost,                       %% secondary index
+          vhost :: rabbit_types:vhost(),                       %% secondary index
           options = #{},
           type = classic,
           created_at,                  %% immutable
