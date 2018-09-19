@@ -57,3 +57,7 @@
           ?amqqueue_v2_field_type(Q) =:= Type) orelse
          (?is_amqqueue_v1(Q) andalso
           ?amqqueue_v1_type =:= Type))).
+
+-define(amqqueue_is_quorum(Q),
+        (?is_amqqueue_v2(Q) andalso
+         ?amqqueue_v2_field_type(Q) =:= quorum)).
