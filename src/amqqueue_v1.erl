@@ -23,8 +23,10 @@
          get_exclusive_owner/1,
          get_gm_pids/1,
          get_name/1,
+         get_operator_policy/1,
          get_options/1,
          get_pid/1,
+         get_policy/1,
          get_policy_version/1,
          get_recoverable_slaves/1,
          get_slave_pids/1,
@@ -99,9 +101,13 @@ get_gm_pids(#amqqueue{gm_pids = GMPids}) -> GMPids.
 
 get_name(#amqqueue{name = Name}) -> Name.
 
+get_operator_policy(#amqqueue{operator_policy = OpPolicy}) -> OpPolicy.
+
 get_options(#amqqueue{options = Options}) -> Options.
 
 get_pid(#amqqueue{pid = Pid}) -> Pid.
+
+get_policy(#amqqueue{policy = Policy}) -> Policy.
 
 set_pid(#amqqueue{} = Queue, Pid) ->
     Queue#amqqueue{pid = Pid}.
