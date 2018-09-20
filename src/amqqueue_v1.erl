@@ -17,29 +17,31 @@
 -module(amqqueue_v1).
 
 -export([new/8,
+         field_vhost/0,
          get_args/1,
          get_decorators/1,
          get_exclusive_owner/1,
+         get_gm_pids/1,
          get_name/1,
          get_options/1,
          get_pid/1,
-         set_pid/2,
          get_policy_version/1,
          get_recoverable_slaves/1,
-         set_recoverable_slaves/2,
          get_slave_pids/1,
          get_state/1,
-         set_state/2,
          get_sync_slave_pids/1,
          get_vhost/1,
          is_amqqueue/1,
          is_auto_delete/1,
          is_durable/1,
-         field_vhost/0,
          pattern_match_all/0,
          pattern_match_on_name/1,
          reset_mirroring_and_decorators/1,
+         set_gm_pids/2,
          set_immutable/1,
+         set_pid/2,
+         set_recoverable_slaves/2,
+         set_state/2,
          macros/0]).
 
 -define(record_version, ?MODULE).
@@ -93,6 +95,8 @@ get_decorators(#amqqueue{decorators = Decorators}) -> Decorators.
 
 get_exclusive_owner(#amqqueue{exclusive_owner = Owner}) -> Owner.
 
+get_gm_pids(#amqqueue{gm_pids = GMPids}) -> GMPids.
+
 get_name(#amqqueue{name = Name}) -> Name.
 
 get_options(#amqqueue{options = Options}) -> Options.
@@ -137,6 +141,9 @@ reset_mirroring_and_decorators(#amqqueue{} = Queue) ->
                    sync_slave_pids = [],
                    gm_pids         = [],
                    decorators      = undefined}.
+
+set_gm_pids(#amqqueue{} = Queue, GMPids) ->
+    Queue#amqqueue{gm_pids = GMPids}.
 
 set_immutable(#amqqueue{} = Queue) ->
     Queue#amqqueue{pid                = none,

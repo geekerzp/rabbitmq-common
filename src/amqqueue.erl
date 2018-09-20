@@ -19,32 +19,34 @@
 -include_lib("rabbit_common/include/rabbit.hrl").
 
 -export([new/9,
+         field_vhost/0,
          get_args/1,
          get_decorators/1,
          get_exclusive_owner/1,
+         get_gm_pids/1,
          get_leader/1,
          get_name/1,
          get_options/1,
          get_pid/1,
-         set_pid/2,
          get_policy_version/1,
-         get_recoverable_slaves/1,
-         set_recoverable_slaves/2,
          get_quorum_nodes/1,
+         get_recoverable_slaves/1,
          get_slave_pids/1,
          get_state/1,
-         set_state/2,
          get_sync_slave_pids/1,
          get_type/1,
          get_vhost/1,
          is_amqqueue/1,
          is_auto_delete/1,
          is_durable/1,
-         field_vhost/0,
          pattern_match_all/0,
          pattern_match_on_name/1,
          reset_mirroring_and_decorators/1,
+         set_gm_pids/2,
          set_immutable/1,
+         set_pid/2,
+         set_recoverable_slaves/2,
+         set_state/2,
          macros/0]).
 
 -define(record_version, amqqueue_v2).
@@ -114,6 +116,11 @@ get_exclusive_owner(#amqqueue{exclusive_owner = Owner}) ->
     Owner;
 get_exclusive_owner(Queue) ->
     amqqueue_v1:get_exclusive_owner(Queue).
+
+get_gm_pids(#amqqueue{gm_pids = GMPids}) ->
+    GMPids;
+get_gm_pids(Queue) ->
+    amqqueue_v1:get_gm_pids(Queue).
 
 get_leader(#amqqueue{type = quorum, pid = {_, Leader}}) -> Leader.
 
@@ -208,6 +215,11 @@ reset_mirroring_and_decorators(#amqqueue{} = Queue) ->
                    decorators      = undefined};
 reset_mirroring_and_decorators(Queue) ->
     amqqueue_v1:reset_mirroring_and_decorators(Queue).
+
+set_gm_pids(#amqqueue{} = Queue, GMPids) ->
+    Queue#amqqueue{gm_pids = GMPids};
+set_gm_pids(Queue, GMPids) ->
+    amqqueue_v1:set_gm_pids(Queue, GMPids).
 
 set_immutable(#amqqueue{} = Queue) ->
     Queue#amqqueue{pid                = none,
