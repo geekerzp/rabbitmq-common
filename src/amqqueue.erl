@@ -22,6 +22,7 @@
          field_vhost/0,
          get_args/1,
          get_decorators/1,
+         % exclusive_owner
          get_exclusive_owner/1,
          % gm_pids
          get_gm_pids/1,

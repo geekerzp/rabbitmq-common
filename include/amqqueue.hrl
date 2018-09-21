@@ -75,9 +75,15 @@
 
 -define(amqqueue_pid_equals(Q, Pid),
         ((?is_amqqueue_v2(Q) andalso
-         ?amqqueue_v2_field_pid(Q) =:= Pid) orelse
-        (?is_amqqueue_v1(Q) andalso
-         ?amqqueue_v1_field_pid(Q) =:= Pid))).
+          ?amqqueue_v2_field_pid(Q) =:= Pid) orelse
+         (?is_amqqueue_v1(Q) andalso
+          ?amqqueue_v1_field_pid(Q) =:= Pid))).
+
+-define(amqqueue_pids_are_equal(Q0, Q1),
+        ((?is_amqqueue_v2(Q0) andalso ?is_amqqueue_v2(Q1) andalso
+          ?amqqueue_v2_field_pid(Q0) =:= ?amqqueue_v2_field_pid(Q1)) orelse
+         (?is_amqqueue_v1(Q0) andalso ?is_amqqueue_v1(Q1) andalso
+          ?amqqueue_v1_field_pid(Q0) =:= ?amqqueue_v1_field_pid(Q1)))).
 
 -define(amqqueue_vhost_not_equals(Q, VHost),
         ((?is_amqqueue_v2(Q) andalso

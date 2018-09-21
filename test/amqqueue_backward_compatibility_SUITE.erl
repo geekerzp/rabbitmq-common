@@ -80,6 +80,7 @@ new_amqqueue_v1_is_amqqueue(_) ->
     ?assert(not ?is_amqqueue_v2(Queue)),
     ?assert(?amqqueue_vhost_not_equals(Queue, <<"frazzle">>)),
     ?assert(?amqqueue_pid_equals(Queue, self())),
+    ?assert(?amqqueue_pids_are_equal(Queue, Queue)),
     ?assert(?amqqueue_pid_runs_on_local_node(Queue)).
 
 new_amqqueue_v2_is_amqqueue(_) ->
@@ -99,6 +100,7 @@ new_amqqueue_v2_is_amqqueue(_) ->
     ?assert(not ?is_amqqueue_v1(Queue)),
     ?assert(?amqqueue_vhost_not_equals(Queue, <<"frazzle">>)),
     ?assert(?amqqueue_pid_equals(Queue, self())),
+    ?assert(?amqqueue_pids_are_equal(Queue, Queue)),
     ?assert(?amqqueue_pid_runs_on_local_node(Queue)).
 
 random_term_is_not_amqqueue(_) ->
