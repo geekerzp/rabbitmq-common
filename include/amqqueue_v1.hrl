@@ -18,3 +18,14 @@
 -define(amqqueue_v1_field_slave_pids_pending_shutdown(Q), element(17, Q)).
 -define(amqqueue_v1_field_vhost(Q), element(18, Q)).
 -define(amqqueue_v1_field_options(Q), element(19, Q)).
+
+% Note: from rabbit.hrl
+% -record(resource, {
+%     virtual_host,
+%     %% exchange, queue, ...
+%     kind,
+%     %% name as a binary
+%     name
+% }).
+
+-define(amqqueue_v1_vhost(Q), element(2, ?amqqueue_v1_field_name(Q))).

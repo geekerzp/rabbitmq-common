@@ -21,15 +21,21 @@
          get_args/1,
          get_decorators/1,
          get_exclusive_owner/1,
+         % gm_pids
          get_gm_pids/1,
+         set_gm_pids/2,
          get_name/1,
          get_operator_policy/1,
          get_options/1,
+         % pid
          get_pid/1,
+         set_pid/2,
          get_policy/1,
          get_policy_version/1,
          get_recoverable_slaves/1,
+         % slave_pids
          get_slave_pids/1,
+         set_slave_pids/2,
          get_state/1,
          get_sync_slave_pids/1,
          get_vhost/1,
@@ -39,9 +45,7 @@
          pattern_match_all/0,
          pattern_match_on_name/1,
          reset_mirroring_and_decorators/1,
-         set_gm_pids/2,
          set_immutable/1,
-         set_pid/2,
          set_recoverable_slaves/2,
          set_state/2,
          macros/0]).
@@ -97,7 +101,12 @@ get_decorators(#amqqueue{decorators = Decorators}) -> Decorators.
 
 get_exclusive_owner(#amqqueue{exclusive_owner = Owner}) -> Owner.
 
+% gm_pids
+
 get_gm_pids(#amqqueue{gm_pids = GMPids}) -> GMPids.
+
+set_gm_pids(#amqqueue{} = Queue, GMPids) ->
+    Queue#amqqueue{gm_pids = GMPids}.
 
 get_name(#amqqueue{name = Name}) -> Name.
 
@@ -105,12 +114,14 @@ get_operator_policy(#amqqueue{operator_policy = OpPolicy}) -> OpPolicy.
 
 get_options(#amqqueue{options = Options}) -> Options.
 
-get_pid(#amqqueue{pid = Pid}) -> Pid.
+% pid
 
-get_policy(#amqqueue{policy = Policy}) -> Policy.
+get_pid(#amqqueue{pid = Pid}) -> Pid.
 
 set_pid(#amqqueue{} = Queue, Pid) ->
     Queue#amqqueue{pid = Pid}.
+
+get_policy(#amqqueue{policy = Policy}) -> Policy.
 
 get_policy_version(#amqqueue{policy_version = PV}) ->
     PV.
@@ -123,6 +134,9 @@ set_recoverable_slaves(#amqqueue{} = Queue, Slaves) ->
 
 get_slave_pids(#amqqueue{slave_pids = Slaves}) ->
     Slaves.
+
+set_slave_pids(#amqqueue{} = Queue, SlavePids) ->
+    Queue#amqqueue{slave_pids = SlavePids}.
 
 get_state(#amqqueue{state = State}) -> State.
 
@@ -147,9 +161,6 @@ reset_mirroring_and_decorators(#amqqueue{} = Queue) ->
                    sync_slave_pids = [],
                    gm_pids         = [],
                    decorators      = undefined}.
-
-set_gm_pids(#amqqueue{} = Queue, GMPids) ->
-    Queue#amqqueue{gm_pids = GMPids}.
 
 set_immutable(#amqqueue{} = Queue) ->
     Queue#amqqueue{pid                = none,

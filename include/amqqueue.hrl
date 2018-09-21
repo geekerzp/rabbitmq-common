@@ -58,6 +58,11 @@
          (?is_amqqueue_v1(Q) andalso
           ?amqqueue_v1_type =:= Type))).
 
+-define(amqqueue_is_classic(Q),
+        ((?is_amqqueue_v2(Q) andalso
+          ?amqqueue_v2_field_type(Q) =:= classic) orelse
+         ?is_amqqueue_v1(Q))).
+
 -define(amqqueue_is_quorum(Q),
         (?is_amqqueue_v2(Q) andalso
          ?amqqueue_v2_field_type(Q) =:= quorum)).
@@ -73,3 +78,9 @@
          ?amqqueue_v2_field_pid(Q) =:= Pid) orelse
         (?is_amqqueue_v1(Q) andalso
          ?amqqueue_v1_field_pid(Q) =:= Pid))).
+
+-define(amqqueue_vhost_not_equals(Q, VHost),
+        ((?is_amqqueue_v2(Q) andalso
+         ?amqqueue_v2_vhost(Q) =/= VHost) orelse
+        (?is_amqqueue_v1(Q) andalso
+         ?amqqueue_v1_vhost(Q) =/= VHost))).

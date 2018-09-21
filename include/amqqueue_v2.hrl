@@ -21,3 +21,14 @@
 -define(amqqueue_v2_field_type(Q), element(20, Q)).
 -define(amqqueue_v2_field_created_at(Q), element(21, Q)).
 -define(amqqueue_v2_field_quorum_nodes(Q), element(22, Q)).
+
+% Note: from rabbit.hrl
+% -record(resource, {
+%     virtual_host,
+%     %% exchange, queue, ...
+%     kind,
+%     %% name as a binary
+%     name
+% }).
+
+-define(amqqueue_v2_vhost(Q), element(2, ?amqqueue_v2_field_name(Q))).
