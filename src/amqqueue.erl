@@ -44,8 +44,12 @@
          % slave_pids
          get_slave_pids/1,
          set_slave_pids/2,
+         % state
          get_state/1,
+         set_state/2,
+         % sync_slave_pids
          get_sync_slave_pids/1,
+         set_sync_slave_pids/2,
          get_type/1,
          get_vhost/1,
          is_amqqueue/1,
@@ -55,7 +59,6 @@
          pattern_match_on_name/1,
          reset_mirroring_and_decorators/1,
          set_immutable/1,
-         set_state/2,
          macros/0]).
 
 -define(record_version, amqqueue_v2).
@@ -196,6 +199,8 @@ get_slave_pids(#amqqueue{slave_pids = Slaves}) ->
 get_slave_pids(Queue) ->
     amqqueue_v1:get_slave_pids(Queue).
 
+% state
+
 get_state(#amqqueue{state = State}) -> State;
 get_state(Queue)                    -> amqqueue_v1:get_state(Queue).
 
@@ -204,10 +209,17 @@ set_state(#amqqueue{} = Queue, State) ->
 set_state(Queue, State) ->
     amqqueue_v1:set_state(Queue, State).
 
+% sync_slave_pids
+
 get_sync_slave_pids(#amqqueue{sync_slave_pids = Pids}) ->
     Pids;
 get_sync_slave_pids(Queue) ->
     amqqueue_v1:get_sync_slave_pids(Queue).
+
+set_sync_slave_pids(#amqqueue{} = Queue, Pids) ->
+    Queue#amqqueue{sync_slave_pids = Pids};
+set_sync_slave_pids(Queue, Pids) ->
+    amqqueue_v1:set_sync_slave_pids(Queue, Pids).
 
 %% New in v2.
 get_type(#amqqueue{type = Type}) -> Type;

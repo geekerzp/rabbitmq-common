@@ -40,8 +40,12 @@
          % slave_pids
          get_slave_pids/1,
          set_slave_pids/2,
+         % state
          get_state/1,
+         set_state/2,
+         % sync_slave_pids
          get_sync_slave_pids/1,
+         set_sync_slave_pids/2,
          get_vhost/1,
          is_amqqueue/1,
          is_auto_delete/1,
@@ -50,7 +54,6 @@
          pattern_match_on_name/1,
          reset_mirroring_and_decorators/1,
          set_immutable/1,
-         set_state/2,
          macros/0]).
 
 -define(record_version, ?MODULE).
@@ -158,11 +161,18 @@ get_slave_pids(#amqqueue{slave_pids = Slaves}) ->
 set_slave_pids(#amqqueue{} = Queue, SlavePids) ->
     Queue#amqqueue{slave_pids = SlavePids}.
 
+% state
+
 get_state(#amqqueue{state = State}) -> State.
 
 set_state(#amqqueue{} = Queue, State) -> Queue#amqqueue{state = State}.
 
+% sync_slave_pids
+
 get_sync_slave_pids(#amqqueue{sync_slave_pids = Pids}) -> Pids.
+
+set_sync_slave_pids(#amqqueue{} = Queue, Pids) ->
+    Queue#amqqueue{sync_slave_pids = Pids}.
 
 get_vhost(#amqqueue{vhost = VHost}) -> VHost.
 
