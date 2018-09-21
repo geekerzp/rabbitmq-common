@@ -26,6 +26,7 @@
          get_gm_pids/1,
          set_gm_pids/2,
          get_name/1,
+         % operator_policy
          get_operator_policy/1,
          get_options/1,
          % pid
@@ -129,6 +130,8 @@ set_gm_pids(#amqqueue{} = Queue, GMPids) ->
     Queue#amqqueue{gm_pids = GMPids}.
 
 get_name(#amqqueue{name = Name}) -> Name.
+
+% operator_policy
 
 get_operator_policy(#amqqueue{operator_policy = OpPolicy}) -> OpPolicy.
 

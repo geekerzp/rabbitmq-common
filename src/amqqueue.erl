@@ -29,6 +29,7 @@
          set_gm_pids/2,
          get_leader/1,
          get_name/1,
+         % operator_policy
          get_operator_policy/1,
          get_options/1,
          % pid
@@ -144,6 +145,8 @@ set_gm_pids(Queue, GMPids) ->
     amqqueue_v1:set_gm_pids(Queue, GMPids).
 
 get_leader(#amqqueue{type = quorum, pid = {_, Leader}}) -> Leader.
+
+% operator_policy
 
 get_operator_policy(#amqqueue{operator_policy = OpPolicy}) -> OpPolicy;
 get_operator_policy(Queue) -> amqqueue_v1:get_operator_policy(Queue).
