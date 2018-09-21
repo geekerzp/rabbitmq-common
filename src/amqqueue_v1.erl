@@ -28,6 +28,7 @@
          get_name/1,
          % operator_policy
          get_operator_policy/1,
+         set_operator_policy/2,
          get_options/1,
          % pid
          get_pid/1,
