@@ -32,7 +32,9 @@
          % pid
          get_pid/1,
          set_pid/2,
+         % policy
          get_policy/1,
+         set_policy/2,
          get_policy_version/1,
          % recoverable_slaves
          get_recoverable_slaves/1,
@@ -135,6 +137,9 @@ get_name(#amqqueue{name = Name}) -> Name.
 
 get_operator_policy(#amqqueue{operator_policy = OpPolicy}) -> OpPolicy.
 
+set_operator_policy(#amqqueue{} = Queue, OpPolicy) ->
+    Queue#amqqueue{operator_policy = OpPolicy}.
+
 get_options(#amqqueue{options = Options}) -> Options.
 
 % pid
@@ -144,7 +149,12 @@ get_pid(#amqqueue{pid = Pid}) -> Pid.
 set_pid(#amqqueue{} = Queue, Pid) ->
     Queue#amqqueue{pid = Pid}.
 
+% policy
+
 get_policy(#amqqueue{policy = Policy}) -> Policy.
+
+set_policy(#amqqueue{} = Queue, Policy) ->
+    Queue#amqqueue{policy = Policy}.
 
 get_policy_version(#amqqueue{policy_version = PV}) ->
     PV.

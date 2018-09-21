@@ -31,11 +31,14 @@
          get_name/1,
          % operator_policy
          get_operator_policy/1,
+         set_operator_policy/2,
          get_options/1,
          % pid
          get_pid/1,
          set_pid/2,
+         % policy
          get_policy/1,
+         set_policy/2,
          get_policy_version/1,
          get_quorum_nodes/1,
          % recoverable_slaves
@@ -151,14 +154,26 @@ get_leader(#amqqueue{type = quorum, pid = {_, Leader}}) -> Leader.
 get_operator_policy(#amqqueue{operator_policy = OpPolicy}) -> OpPolicy;
 get_operator_policy(Queue) -> amqqueue_v1:get_operator_policy(Queue).
 
+set_operator_policy(#amqqueue{} = Queue, Policy) ->
+    Queue#amqqueue{operator_policy = Policy};
+set_operator_policy(Queue, Policy) ->
+    amqqueue_v1:set_operator_policy(Queue, Policy).
+
 get_name(#amqqueue{name = Name}) -> Name;
 get_name(Queue)                  -> amqqueue_v1:get_name(Queue).
 
 get_options(#amqqueue{options = Options}) -> Options;
 get_options(Queue)                        -> amqqueue_v1:get_options(Queue).
 
+% policy
+
 get_policy(#amqqueue{policy = Policy}) -> Policy;
 get_policy(Queue) -> amqqueue_v1:get_policy(Queue).
+
+set_policy(#amqqueue{} = Queue, Policy) ->
+    Queue#amqqueue{policy = Policy};
+set_policy(Queue, Policy) ->
+    amqqueue_v1:set_policy(Queue, Policy).
 
 get_pid(#amqqueue{pid = Pid}) -> Pid;
 get_pid(Queue)                -> amqqueue_v1:get_pid(Queue).
