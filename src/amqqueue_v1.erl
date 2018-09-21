@@ -40,6 +40,9 @@
          % slave_pids
          get_slave_pids/1,
          set_slave_pids/2,
+         % slave_pids_pending_shutdown
+         get_slave_pids_pending_shutdown/1,
+         set_slave_pids_pending_shutdown/2,
          % state
          get_state/1,
          set_state/2,
@@ -155,11 +158,21 @@ get_recoverable_slaves(#amqqueue{recoverable_slaves = Slaves}) ->
 set_recoverable_slaves(#amqqueue{} = Queue, Slaves) ->
     Queue#amqqueue{recoverable_slaves = Slaves}.
 
+% slave_pids
+
 get_slave_pids(#amqqueue{slave_pids = Slaves}) ->
     Slaves.
 
 set_slave_pids(#amqqueue{} = Queue, SlavePids) ->
     Queue#amqqueue{slave_pids = SlavePids}.
+
+% slave_pids_pending_shutdown
+
+get_slave_pids_pending_shutdown(#amqqueue{slave_pids_pending_shutdown = Slaves}) ->
+    Slaves.
+
+set_slave_pids_pending_shutdown(#amqqueue{} = Queue, SlavePids) ->
+    Queue#amqqueue{slave_pids_pending_shutdown = SlavePids}.
 
 % state
 

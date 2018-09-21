@@ -44,6 +44,9 @@
          % slave_pids
          get_slave_pids/1,
          set_slave_pids/2,
+         % slave_pids_pending_shutdown
+         get_slave_pids_pending_shutdown/1,
+         set_slave_pids_pending_shutdown/2,
          % state
          get_state/1,
          set_state/2,
@@ -185,19 +188,33 @@ set_recoverable_slaves(#amqqueue{} = Queue, Slaves) ->
 set_recoverable_slaves(Queue, Slaves) ->
     amqqueue_v1:set_recoverable_slaves(Queue, Slaves).
 
-set_slave_pids(#amqqueue{} = Queue, SlavePids) ->
-    Queue#amqqueue{slave_pids = SlavePids};
-set_slave_pids(Queue, SlavePids) ->
-    amqqueue_v1:set_slave_pids(Queue, SlavePids).
-
 %% New in v2.
 get_quorum_nodes(#amqqueue{quorum_nodes = Nodes}) -> Nodes;
 get_quorum_nodes(_)                               -> [].
+
+% slave_pids
 
 get_slave_pids(#amqqueue{slave_pids = Slaves}) ->
     Slaves;
 get_slave_pids(Queue) ->
     amqqueue_v1:get_slave_pids(Queue).
+
+set_slave_pids(#amqqueue{} = Queue, SlavePids) ->
+    Queue#amqqueue{slave_pids = SlavePids};
+set_slave_pids(Queue, SlavePids) ->
+    amqqueue_v1:set_slave_pids(Queue, SlavePids).
+
+% slave_pids_pending_shutdown
+
+get_slave_pids_pending_shutdown(#amqqueue{slave_pids_pending_shutdown = Slaves}) ->
+    Slaves;
+get_slave_pids_pending_shutdown(Queue) ->
+    amqqueue_v1:get_slave_pids_pending_shutdown(Queue).
+
+set_slave_pids_pending_shutdown(#amqqueue{} = Queue, SlavePids) ->
+    Queue#amqqueue{slave_pids_pending_shutdown = SlavePids};
+set_slave_pids_pending_shutdown(Queue, SlavePids) ->
+    amqqueue_v1:set_slave_pids_pending_shutdown(Queue, SlavePids).
 
 % state
 
