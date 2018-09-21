@@ -36,7 +36,9 @@
          get_policy/1,
          get_policy_version/1,
          get_quorum_nodes/1,
+         % recoverable_slaves
          get_recoverable_slaves/1,
+         set_recoverable_slaves/2,
          % name.virtual_host
          get_resource_vhost/1,
          % slave_pids
@@ -53,7 +55,6 @@
          pattern_match_on_name/1,
          reset_mirroring_and_decorators/1,
          set_immutable/1,
-         set_recoverable_slaves/2,
          set_state/2,
          macros/0]).
 
@@ -168,6 +169,8 @@ get_resource_vhost(#amqqueue{name = #resource{virtual_host = VHost}}) ->
     VHost;
 get_resource_vhost(Queue) ->
     amqqueue_v1:get_resource_vhost(Queue).
+
+% recoverable_slaves
 
 get_recoverable_slaves(#amqqueue{recoverable_slaves = Slaves}) ->
     Slaves;
