@@ -37,6 +37,8 @@
          get_policy_version/1,
          get_quorum_nodes/1,
          get_recoverable_slaves/1,
+         % name.virtual_host
+         get_resource_vhost/1,
          % slave_pids
          get_slave_pids/1,
          set_slave_pids/2,
@@ -159,6 +161,13 @@ get_policy_version(#amqqueue{policy_version = PV}) ->
     PV;
 get_policy_version(Queue) ->
     amqqueue_v1:get_policy_version(Queue).
+
+% name.virtual_host
+
+get_resource_vhost(#amqqueue{name = #resource{virtual_host = VHost}}) ->
+    VHost;
+get_resource_vhost(Queue) ->
+    amqqueue_v1:get_resource_vhost(Queue).
 
 get_recoverable_slaves(#amqqueue{recoverable_slaves = Slaves}) ->
     Slaves;

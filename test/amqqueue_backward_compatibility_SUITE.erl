@@ -77,7 +77,10 @@ new_amqqueue_v1_is_amqqueue(_) ->
                             undefined),
     ?assert(?is_amqqueue(Queue)),
     ?assert(?is_amqqueue_v1(Queue)),
-    ?assert(not ?is_amqqueue_v2(Queue)).
+    ?assert(not ?is_amqqueue_v2(Queue)),
+    ?assert(?amqqueue_vhost_not_equals(Queue, <<"frazzle">>)),
+    ?assert(?amqqueue_pid_equals(Queue, self())),
+    ?assert(?amqqueue_pid_runs_on_local_node(Queue)).
 
 new_amqqueue_v2_is_amqqueue(_) ->
     VHost = <<"/">>,
@@ -93,7 +96,10 @@ new_amqqueue_v2_is_amqqueue(_) ->
                          classic),
     ?assert(?is_amqqueue(Queue)),
     ?assert(?is_amqqueue_v2(Queue)),
-    ?assert(not ?is_amqqueue_v1(Queue)).
+    ?assert(not ?is_amqqueue_v1(Queue)),
+    ?assert(?amqqueue_vhost_not_equals(Queue, <<"frazzle">>)),
+    ?assert(?amqqueue_pid_equals(Queue, self())),
+    ?assert(?amqqueue_pid_runs_on_local_node(Queue)).
 
 random_term_is_not_amqqueue(_) ->
     Term = ?long_tuple,
@@ -203,6 +209,7 @@ amqqueue_v1_type_matching(_) ->
                             [],
                             VHost,
                             undefined),
+    ?assert(?amqqueue_is_classic(Queue)),
     ?assert(?amqqueue_type_is(Queue, classic)),
     ?assert(not ?amqqueue_type_is(Queue, quorum)).
 
@@ -218,6 +225,7 @@ amqqueue_v2_type_matching(_) ->
                                 VHost,
                                 undefined,
                                 classic),
+    ?assert(?amqqueue_is_classic(ClassicQueue)),
     QuorumQueue = amqqueue:new(Name,
                                self(),
                                true,
@@ -227,6 +235,7 @@ amqqueue_v2_type_matching(_) ->
                                VHost,
                                undefined,
                                quorum),
+    ?assert(?amqqueue_is_quorum(QuorumQueue)),
     ?assert(?amqqueue_type_is(ClassicQueue, classic)),
     ?assert(?amqqueue_type_is(QuorumQueue, quorum)).
 

@@ -33,6 +33,8 @@
          get_policy/1,
          get_policy_version/1,
          get_recoverable_slaves/1,
+         % name.virtual_host
+         get_resource_vhost/1,
          % slave_pids
          get_slave_pids/1,
          set_slave_pids/2,
@@ -51,6 +53,16 @@
          macros/0]).
 
 -define(record_version, ?MODULE).
+
+-record(resource, {
+    virtual_host,
+    %% exchange, queue, ...
+    kind,
+    %% name as a binary
+    name
+}).
+
+% TODO #160169569 what about dialyzer types?
 
 -record(amqqueue, {
           name, durable, auto_delete, exclusive_owner = none, %% immutable
@@ -125,6 +137,11 @@ get_policy(#amqqueue{policy = Policy}) -> Policy.
 
 get_policy_version(#amqqueue{policy_version = PV}) ->
     PV.
+
+% name.virtual_host
+
+get_resource_vhost(#amqqueue{name = #resource{virtual_host = VHost}}) ->
+    VHost.
 
 get_recoverable_slaves(#amqqueue{recoverable_slaves = Slaves}) ->
     Slaves.
