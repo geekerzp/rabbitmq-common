@@ -44,6 +44,7 @@
          % policy_version
          get_policy_version/1,
          set_policy_version/2,
+         % quorum_nodes
          get_quorum_nodes/1,
          % recoverable_slaves
          get_recoverable_slaves/1,
@@ -242,7 +243,8 @@ set_recoverable_slaves(#amqqueue{} = Queue, Slaves) ->
 set_recoverable_slaves(Queue, Slaves) ->
     amqqueue_v1:set_recoverable_slaves(Queue, Slaves).
 
-%% New in v2.
+% quorum_nodes (new in v2)
+
 get_quorum_nodes(#amqqueue{quorum_nodes = Nodes}) -> Nodes;
 get_quorum_nodes(_)                               -> [].
 
