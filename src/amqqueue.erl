@@ -39,7 +39,9 @@
          % policy
          get_policy/1,
          set_policy/2,
+         % policy_version
          get_policy_version/1,
+         set_policy_version/2,
          get_quorum_nodes/1,
          % recoverable_slaves
          get_recoverable_slaves/1,
@@ -165,6 +167,16 @@ get_name(Queue)                  -> amqqueue_v1:get_name(Queue).
 get_options(#amqqueue{options = Options}) -> Options;
 get_options(Queue)                        -> amqqueue_v1:get_options(Queue).
 
+% pid
+
+get_pid(#amqqueue{pid = Pid}) -> Pid;
+get_pid(Queue)                -> amqqueue_v1:get_pid(Queue).
+
+set_pid(#amqqueue{} = Queue, Pid) ->
+    Queue#amqqueue{pid = Pid};
+set_pid(Queue, Pid) ->
+    amqqueue_v1:set_pid(Queue, Pid).
+
 % policy
 
 get_policy(#amqqueue{policy = Policy}) -> Policy;
@@ -175,18 +187,17 @@ set_policy(#amqqueue{} = Queue, Policy) ->
 set_policy(Queue, Policy) ->
     amqqueue_v1:set_policy(Queue, Policy).
 
-get_pid(#amqqueue{pid = Pid}) -> Pid;
-get_pid(Queue)                -> amqqueue_v1:get_pid(Queue).
-
-set_pid(#amqqueue{} = Queue, Pid) ->
-    Queue#amqqueue{pid = Pid};
-set_pid(Queue, Pid) ->
-    amqqueue_v1:set_pid(Queue, Pid).
+% policy_version
 
 get_policy_version(#amqqueue{policy_version = PV}) ->
     PV;
 get_policy_version(Queue) ->
     amqqueue_v1:get_policy_version(Queue).
+
+set_policy_version(#amqqueue{} = Queue, PV) ->
+    Queue#amqqueue{policy_version = PV};
+set_policy_version(Queue, PV) ->
+    amqqueue_v1:set_policy_version(Queue, PV).
 
 % name.virtual_host
 

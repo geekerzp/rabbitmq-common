@@ -36,7 +36,9 @@
          % policy
          get_policy/1,
          set_policy/2,
+         % policy_version
          get_policy_version/1,
+         set_policy_version/2,
          % recoverable_slaves
          get_recoverable_slaves/1,
          set_recoverable_slaves/2,
@@ -157,8 +159,13 @@ get_policy(#amqqueue{policy = Policy}) -> Policy.
 set_policy(#amqqueue{} = Queue, Policy) ->
     Queue#amqqueue{policy = Policy}.
 
+% policy_version
+
 get_policy_version(#amqqueue{policy_version = PV}) ->
     PV.
+
+set_policy_version(#amqqueue{} = Queue, PV) ->
+    Queue#amqqueue{policy_version = PV}.
 
 % name.virtual_host
 
