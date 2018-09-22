@@ -21,7 +21,9 @@
 -export([new/9,
          field_vhost/0,
          get_args/1,
+         % decorators
          get_decorators/1,
+         set_decorators/2,
          % exclusive_owner
          get_exclusive_owner/1,
          % gm_pids
@@ -132,10 +134,17 @@ quorum_queue_ff_enabled() ->
 get_args(#amqqueue{arguments = Args}) -> Args;
 get_args(Queue)                       -> amqqueue_v1:get_args(Queue).
 
+% decorators
+
 get_decorators(#amqqueue{decorators = Decorators}) ->
     Decorators;
 get_decorators(Queue) ->
     amqqueue_v1:get_decorators(Queue).
+
+set_decorators(#amqqueue{} = Queue, Decorators) ->
+    Queue#amqqueue{decorators = Decorators};
+set_decorators(Queue, Decorators) ->
+    amqqueue_v1:set_decorators(Queue, Decorators).
 
 get_exclusive_owner(#amqqueue{exclusive_owner = Owner}) ->
     Owner;

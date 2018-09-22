@@ -19,7 +19,9 @@
 -export([new/8,
          field_vhost/0,
          get_args/1,
+         % decorators
          get_decorators/1,
+         set_decorators/2,
          % exclusive_owner
          get_exclusive_owner/1,
          % gm_pids
@@ -126,7 +128,12 @@ is_amqqueue(_)           -> false.
 
 get_args(#amqqueue{arguments = Args}) -> Args.
 
+% decorators
+
 get_decorators(#amqqueue{decorators = Decorators}) -> Decorators.
+
+set_decorators(#amqqueue{} = Queue, Decorators) ->
+    Queue#amqqueue{decorators = Decorators}.
 
 get_exclusive_owner(#amqqueue{exclusive_owner = Owner}) -> Owner.
 
