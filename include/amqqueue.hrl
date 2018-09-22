@@ -67,6 +67,12 @@
         (?is_amqqueue_v2(Q) andalso
          ?amqqueue_v2_field_type(Q) =:= quorum)).
 
+-define(amqqueue_has_valid_pid(Q),
+        ((?is_amqqueue_v2(Q) andalso
+         is_pid(?amqqueue_v2_field_pid(Q))) orelse
+        (?is_amqqueue_v1(Q) andalso
+         is_pid(?amqqueue_v1_field_pid(Q))))).
+
 -define(amqqueue_pid_runs_on_local_node(Q),
         ((?is_amqqueue_v2(Q) andalso
          node(?amqqueue_v2_field_pid(Q)) =:= node()) orelse
