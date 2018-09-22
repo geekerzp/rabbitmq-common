@@ -47,6 +47,7 @@
          set_policy_version/2,
          % quorum_nodes
          get_quorum_nodes/1,
+         set_quorum_nodes/2,
          % recoverable_slaves
          get_recoverable_slaves/1,
          set_recoverable_slaves/2,
@@ -250,6 +251,11 @@ set_recoverable_slaves(Queue, Slaves) ->
 
 get_quorum_nodes(#amqqueue{quorum_nodes = Nodes}) -> Nodes;
 get_quorum_nodes(_)                               -> [].
+
+set_quorum_nodes(#amqqueue{} = Queue, Nodes) ->
+    Queue#amqqueue{quorum_nodes = Nodes};
+set_quorum_nodes(Queue, _Nodes) ->
+    Queue.
 
 % slave_pids
 
