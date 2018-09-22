@@ -20,7 +20,8 @@
 
 -export([new/9,
          field_vhost/0,
-         get_args/1,
+         % arguments
+         get_arguments/1,
          % decorators
          get_decorators/1,
          set_decorators/2,
@@ -132,8 +133,10 @@ quorum_queue_ff_enabled() ->
     %%     the fly, so the function returns statically "true" or "false".
     true.
 
-get_args(#amqqueue{arguments = Args}) -> Args;
-get_args(Queue)                       -> amqqueue_v1:get_args(Queue).
+% arguments
+
+get_arguments(#amqqueue{arguments = Args}) -> Args;
+get_arguments(Queue)                       -> amqqueue_v1:get_arguments(Queue).
 
 % decorators
 

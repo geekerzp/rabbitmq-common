@@ -18,7 +18,8 @@
 
 -export([new/8,
          field_vhost/0,
-         get_args/1,
+         % arguments
+         get_arguments/1,
          % decorators
          get_decorators/1,
          set_decorators/2,
@@ -126,7 +127,9 @@ new(Name,
 is_amqqueue(#amqqueue{}) -> true;
 is_amqqueue(_)           -> false.
 
-get_args(#amqqueue{arguments = Args}) -> Args.
+% arguments
+
+get_arguments(#amqqueue{arguments = Args}) -> Args.
 
 % decorators
 
