@@ -65,7 +65,8 @@
 
 -define(amqqueue_is_quorum(Q),
         (?is_amqqueue_v2(Q) andalso
-         ?amqqueue_v2_field_type(Q) =:= quorum)).
+         ?amqqueue_v2_field_type(Q) =:= quorum) orelse
+        false).
 
 -define(amqqueue_has_valid_pid(Q),
         ((?is_amqqueue_v2(Q) andalso
