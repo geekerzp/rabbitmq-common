@@ -176,7 +176,7 @@ quote_plus(Int) when is_integer(Int) ->
 quote_plus(Binary) when is_binary(Binary) ->
     quote_plus(binary_to_list(Binary));
 quote_plus(Float) when is_float(Float) ->
-    quote_plus(mochinum:digits(Float));
+    quote_plus(rc_mochinum:digits(Float));
 quote_plus(String) ->
     quote_plus(String, []).
 
