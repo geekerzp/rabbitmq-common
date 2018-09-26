@@ -3,7 +3,7 @@
 
 %% @doc Utilities for parsing and quoting.
 
--module(mochiweb_util).
+-module(rc_mochiweb_util).
 -author('bob@mochimedia.com').
 -export([join/2, quote_plus/1, urlencode/1, parse_qs/1, unquote/1]).
 -export([path_split/1]).
@@ -109,7 +109,7 @@ shell_quote(L) ->
     shell_quote(L, [$\"]).
 
 %% @spec cmd_port([string()], Options) -> port()
-%% @doc open_port({spawn, mochiweb_util:cmd_string(Argv)}, Options).
+%% @doc open_port({spawn, rc_mochiweb_util:cmd_string(Argv)}, Options).
 cmd_port(Argv, Options) ->
     open_port({spawn, cmd_string(Argv)}, Options).
 
@@ -361,7 +361,7 @@ urlsplit_query([C | Rest], Acc) ->
 %         "crossdomain.xml" ->
 %             "text/x-cross-domain-policy";
 %         Name ->
-%             case mochiweb_mime:from_extension(filename:extension(Name)) of
+%             case rc_mochiweb_mime:from_extension(filename:extension(Name)) of
 %                 undefined ->
 %                     "text/plain";
 %                 Mime ->
@@ -374,7 +374,7 @@ urlsplit_query([C | Rest], Acc) ->
 %%       and a property list of options.
 parse_header(String) ->
     %% TODO: This is exactly as broken as Python's cgi module.
-    %%       Should parse properly like mochiweb_cookies.
+    %%       Should parse properly like rc_mochiweb_cookies.
     [Type | Parts] = [string:strip(S) || S <- string:tokens(String, ";")],
     F = fun (S, Acc) ->
                 case lists:splitwith(fun (C) -> C =/= $= end, S) of
